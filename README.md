@@ -16,6 +16,20 @@ First, start up the container:
     $ docker build -t hpcc .
     $ docker run -d -P --name hpcc hpcc
 
+Start HPCC.
+
+    $ docker exec hpcc /etc/init.d/hpcc-init start
+      Starting mydafilesrv....       [  OK  ]
+      Starting mydali....            [  OK  ]
+      Starting mydfuserver....       [  OK  ]
+      Starting myeclagent....        [  OK  ]
+      Starting myeclccserver....     [  OK  ]
+      Starting myeclscheduler....    [  OK  ]
+      Starting myesp....             [  OK  ]
+      Starting myroxie....           [  OK  ]
+      Starting mysasha....           [  OK  ]
+      Starting mythor....            [  OK  ]
+
 Now check the port mappings for ECL Watch and ESP.
 
     $ docker port hpcc
@@ -34,3 +48,6 @@ ECL Watch and ESP.
 
 * The apt-get list in the docker file needs to be slimmed down.
 That's actually the list of dependencies to build HPCC, not run it.
+
+* Shouldn't need to exec hpcc-init but not sure correct way to handle
+  this when using phusion.
