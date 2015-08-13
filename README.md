@@ -32,14 +32,5 @@ ECL Watch and ESP.
 
 ## TODO / BUGS
 
-* HPCC is not always running after starting up docker.
-
-      `$ docker exec hpcc /etc/init.d/hpcc-init start`
-
 * The apt-get list in the docker file needs to be slimmed down.
 That's actually the list of dependencies to build HPCC, not run it.
-
-* The VOLUMEs don't seem to mount.
-
-* THOR doesn't currently start.  This isn't related to Docker though
-  as we've had this problem on other Ubuntu installs.
