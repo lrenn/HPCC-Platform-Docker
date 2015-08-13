@@ -11,9 +11,35 @@ The container doesn't have a database server configured. It should be fairly eas
 
 ## Usage
 
-First, verify it works:
+First, start up the container:
 
-    # docker build -t hpcc .
-    # docker run -t -p 80 hpcc
+    $ docker build -t hpcc .
+    $ docker run -d -P --name hpcc hpcc
 
-This will expose port 80 within the container, you should run `docker ps` to check the port equivalent on the host machine and go to http://localhost:{EXPOSED_PORT} to confirm you get the proverbial "Hello, world!" message.
+Now check the port mappings for ECL Watch and ESP.
+
+    $ docker port hpcc
+    8002/tcp -> 0.0.0.0:32775
+    8010/tcp -> 0.0.0.0:32774
+
+Find out the ip of your docker machine.
+
+    $ docker-machine ip default
+    192.168.99.100
+
+You should now be able to hit http://<machine ip>:<exposed port>/ for both
+ECL Watch and ESP.
+
+## TODO / BUGS
+
+* HPCC is not always running after starting up docker.
+
+      `$ docker exec hpcc /etc/init.d/hpcc-init start`
+
+* The apt-get list in the docker file needs to be slimmed down.
+That's actually the list of dependencies to build HPCC, not run it.
+
+* The VOLUMEs don't seem to mount.
+
+* THOR doesn't currently start.  This isn't related to Docker though
+  as we've had this problem on other Ubuntu installs.
